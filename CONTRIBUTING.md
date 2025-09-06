@@ -1,121 +1,206 @@
-# Contributing to python-dispatch
+# Contributing to niet
 
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+First off, thanks for taking the time to contribute!
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
+The following as a set of guidelines for contributing to niet.
+These are mostly guidelines, not rules. Use your best judgment, and fell
+free to propose changes to this document in a pull request.
 
-## Pull Requests
+## Code of Conduct
 
-Pull requests are the best way to propose changes to the project. We actively welcome your pull requests.
+This project and everyone participating in it is governed
+by the [niet Code of Conduct](CODE_OF_CONDUCT.md).
+By participating, you are expected to uphold this code.
+Please report unacceptable behavior to [herveberaud.pro@gmail.com](mailto:herveberaud.pro@gmail.com).
 
-### Basic Steps
+## How Can I Contribute?
 
-1. Fork the [repo](https://github.com/nocarryr/python-dispatch) and **create a new
-    branch** from `master`.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
-5. Issue that pull request!
+### Reporting Bugs
 
-### Your First Code Contribution
+This section guides you through submitting a bug report for niet.
+Following these guidelines helps maintainers and the community
+understand your report, reproduce the behavior, and find related reports.
 
-Working on your first Pull Request? Here are a couple of resources to get you started:
+Before creating bug reports, please perform a
+[cursory search](https://github.com/openuado/niet/issues?q=is%3Aissue%20is%3Aopen%20)
+to see if the problem has already been reported.
+If it has and the issue is still open, add a comment to
+the existing issue instead of opening a new one.
+When you are creating a bug report, please [include as many details as possbile](#how-do-i-submit-a-good-bug-report).
 
-- [Github Help: Creating a pull request](https://help.github.com/en/desktop/contributing-to-projects/creating-a-pull-request)
-- [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
-- [The FirstTimersOnly Movement](http://www.firsttimersonly.com/)
+> **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
 
+#### How Do I Submit A (Good) Bug Report?
 
-## Limit Changes per Pull Request
+Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 
-- Avoid changes to the project's configuration or meta-data such as
-  - Version Information
-  - Packaging Configuration
-  - Testing / Deployment Configuration
-- Try to avoid making large sets of changes if they could be broken into smaller ones.
-  Instead, split them into separate pull requests.
+Explain the problem and include additional details to help maintainers reproduce the problem:
 
-## Coding Style
-
-While this project does not fully (probably not even partially) adhere to [PEP8](https://www.python.org/dev/peps/pep-0008/),
-the existing code-base does maintain a certain level of consistency.  Please try
-to follow the style if possible.  Don't worry about it too much though, there's no
-[flakes](https://pypi.org/project/pyflakes/) or [lint](https://www.pylint.org/) here.
-
-### Basic Guidelines
-
-- 4 spaces for indentation, not tabs.
-- Avoid trailing whitespace.
-- Prefer readability and clarity over complicated/complex: see the
-    [Zen of Python](https://www.python.org/dev/peps/pep-0020/)
+* **Use a clear and descriptive title** for the issue to identify the problem.
+* **Describe the exact steps which reproduce the problem** in as many details as possible. For example, start by explaining how you use the niet command line, e.g. which command exactly you used in the terminal. When listing steps, **don't just say what you did, but explain how you did it**.
+* **Provide specific examples to demonstrate the steps**. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples. If you're providing snippets in the issue, use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
+* **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
+* **Explain which behavior you expected to see instead and why.**
 
 
-## Follow the Goals and Philosophy of the Project
+Provide more context by answering these questions:
 
-- No dependencies should ever be introduced.
-- Keep things simple and light-weight.
-- Avoid adding public methods/attributes to the `Dispatcher` class, especially
-  if the method/attribute names are common.
-  - Since `Dispatcher` is meant to be subclassed by users of this project,
-    it needs to stay out of a developer's way as much as possible.
-- Ensure compatibility across all conceivable platforms and Python versions. (currently 2.7, 3.4, 3.5, 3.6, 3.7)
+* **Did the problem start happening recently** (e.g. after updating to a new version of niet) or was this always a problem?
+* If the problem started happening recently, **can you reproduce the problem in an older version of niet?** What's the most recent version in which the problem doesn't happen? You can install older versions of niet from [the pypi repository](https://pypi.org/project/niet/).
+* **Can you reliably reproduce the issue?** If not, provide details about how often the problem happens and under which conditions it normally happens.
 
-## Local Development
+Include details about your configuration and environment:
 
-### Environment / Installation
+* **Which version of niet are you using?** You can get the exact version by running `pip freeze | grep "niet"` in your terminal.
+* **What's the name and version of the OS you're using**?
+* **What's the version of python you're using**?
 
-```bash
-git clone https://github.com/<gh-user-name>/python-dispatch.git
-cd python-dispatch
+### Suggesting Enhancements
+
+This section guides you through submitting an enhancement suggestion for niet, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion and find related suggestions.
+
+When you are creating an enhancement suggestion, please [include as many details as possible](#how-do-i-submit-a-good-enhancement-suggestion) and including the steps that you imagine you would take if the feature you're requesting existed.
+
+#### How Do I Submit A (Good) Enhancement Suggestion?
+
+Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com/features/issues/).
+
+Provide the following information:
+
+* **Use a clear and descriptive title** for the issue to identify the suggestion.
+* **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
+* **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
+* **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
+* **Include screenshots and animated GIFs** which help you demonstrate the steps or point out the part of niet which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
+* **Explain why this enhancement would be useful** to most niet users.
+* **List some other tools or applications where this enhancement exists.**
+* **Specify which version of niet you're using.** You can get the exact version by running `pip freeze| grep "niet"` in your terminal.
+* **Specify the name and version of the OS you're using.**
+* **Specify the version of python you're using**
+
+## Code Contribution
+
+### Hacking on niet
+
+If you're hitting a bug in niet or just want to experiment with adding a feature, follow these steps.
+
+#### Prerequisites
+
+- [tox](https://tox.readthedocs.io/en/latest/)
+- python 2.7+
+
+#### Cloning
+
+```shell
+$ git clone https://github.com/openuado/niet
 ```
 
-It's recommended to use a virtual environment for development and testing.
-See https://virtualenv.pypa.io/en/latest/ or https://docs.python.org/3.7/library/venv.html for details.
+#### Setup your environment
 
-Create a new environment at the root of your working tree and activate it:
-```bash
-python -m venv venv
-source venv/bin/activate
+From there, you can navigate into the directory where you've cloned
+the niet source code:
+
+```shell
+$ cd niet
 ```
 
-Install the project in 'editable' mode:
-```bash
-pip install -e .
+You can install the development tools by using:
+```
+python3.11 -m pip install --editable ".[dev]"
 ```
 
-Currently, the only dependency for testing is [pytest](https://pypi.org/project/pytest/),
-but to make tests run faster, it's a good idea to install [pytest-xdist](https://pypi.org/project/pytest-xdist/):
-```bash
-pip install pytest pytest-xdist
+And enabling `pre-commit` for niet:
+```
+$ pre-commit install
 ```
 
-### Running Tests
+`tox` allow you to use niet directly in a dedicated virtual environment
+already configured (requirements, etc):
 
-To run the entire test suite:
-```bash
-py.test -n auto
-# -n auto will use all available CPU cores
+```shell
+$ tox -e venv -- niet -h
+...
+venv run-test: commands[0] | niet -h
+usage: niet [-h] [-f {json,yaml,eval,newline,ifs,squote,dquote}] [-i]
+            [-o OUTPUT_FILE] [-s] [-v]
+            object [file]
+...
+___________________ summary ______________
+  venv: commands succeeded
+  congratulations :)
+
+$ tox -e venv -- niet -v
+niet version <related version>
 ```
 
-For other invocation methods, see the [pytest docs](https://pytest.org/en/latest/)
+#### Make your changes
 
-There is a test in the suite that will take an *extremely* long time: `tests/test_subclass_init.py`. To avoid having to wait for it every time, you can make
-a change to it, make sure to **revert it** before committing.
-
-`tests/test_subclass_init.py` line 83:
-```python
-for i in range(40000):          # <--- change this to something like 4000
-    before_init = time.time()
+First create your working branch:
+```shell
+$ git checkout -b somefeature origin/master
 ```
 
-## License
+> Be sure to create your working branch from `master` and be sure your master are up-to-date
 
-By contributing, you agree that your contributions will be licensed under
-project's (MIT) [license](LICENSE.txt).
+Make our changes:
+```shell
+$ vim <file-to-edit>
+$ git commit -am 'I did some changes'
+```
 
-## References
+Notice that a debug mode is available and can be easily used during your
+development to dive deep in your execution and observe what happen
+step by step, example:
 
-This document was adapted from the open-source contribution guidelines for [Facebook's Draft](https://github.com/facebook/draft-js/blob/a9316a723f9e918afde44dea68b5f9f39b7d9b00/CONTRIBUTING.md)
+```
+tox -e venv -- niet --debug \
+    oslo.deliverables\
+    https://raw.githubusercontent.com/openstack/governance/master/reference/projects.yaml
+```
+
+#### Ensure everything work fine
+
+Every following checks are automaticaly executed on pull requests so need to
+be sure that all of these checks run successfully before submit your pull request
+on github.
+
+Code formating and PEP8 validation:
+```shell
+$ tox -e pep8
+```
+
+Unit tests:
+```shell
+$ tox # by default run tests with all the python versions specified in tox.ini
+```
+
+> Note: If you have just a specific version of python installed on your system, you can test like this:
+```shell
+$ tox -e py311 # test with python 3.11
+```
+
+Security analyze:
+```shell
+bandit -r niet
+```
+
+### Pull Requests
+
+If everything work fine you can create your pull request.
+
+Before ensure you have [squash your commits](http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.html).
+
+> Be sure to submit your pull request on the upstream `master` branch!
+
+You can create your pull request manually directly from github:
+* Include examples, outputs, etc... whenever possible.
+* Include screenshots and animated GIFs in your pull request whenever possible.
+
+### Deploy niet on PyPi
+
+```
+pip install --editable ".[dev]"
+python -m build
+twine check dist/*
+twine upload dist/*
+```
