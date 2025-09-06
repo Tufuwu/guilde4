@@ -1,3 +1,4 @@
-*.pyc
-.coverage
-htmlcov/
+build/
+_build/
+.idea/
+.vscode/
