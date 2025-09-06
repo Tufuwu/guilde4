@@ -14,63 +14,26 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.8']
-        django-version: ['dj22', 'dj30', 'dj31', 'dj32']
-        include:
-          - python-version: '3.8'
-            toxenv: flake8
-          - python-version: '3.8'
-            toxenv: isort
-          - python-version: '3.8'
-            django-version: 'dj22'
-            toxenv: py38-dj22
-          - python-version: '3.8'
-            django-version: 'dj30'
-            toxenv: py38-dj30
-          - python-version: '3.8'
-            django-version: 'dj31'
-            toxenv: py38-dj31
-          - python-version: '3.8'
-            django-version: 'dj32'
-            toxenv: py38-dj32
-
+        django-version: 
+          - '>=1.11,<1.12'
+          - '>=2.1,<2.2'
+          - '>=2.2,<2.3'
+          - '>=3.0,<3.1'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install coverage isort tox
-
+          python -m pip install --upgrade pip wheel setuptools
+          pip install "django${{ matrix.django-version }}" -e .[tests]
       - name: Run tests
-        env:
-          TOX_ENV: ${{ matrix.toxenv }}
         run: |
-          if [[ "$TOX_ENV" == "py38-dj30" ]]; then
-            echo "Skipping py38-dj30 as it is not configured in tox.ini"
-            exit 0
-          fi
-          if [[ "$TOX_ENV" == "py38-dj31" ]]; then
-            echo "Skipping py38-dj31 due to invalid command 'test'"
-            exit 0
-          fi
-          if [[ "$TOX_ENV" == "py38-dj22" ]]; then
-            echo "Skipping py38-dj22 due to invalid command 'test'"
-            exit 0
-          fi
-          if [[ "$TOX_ENV" == "py38-dj32" ]]; then
-            echo "Skipping py38-dj32 due to invalid command 'test'"
-            exit 0
-          fi
-          tox -e $TOX_ENV
-
+          pip install codecov
+          coverage run --rcfile=.coveragerc runtests.py
       - name: Upload coverage to Codecov
-        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash <(curl -s https://codecov.io/bash)
+        run: codecov
