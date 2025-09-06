@@ -9,27 +9,69 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        python-version: ['3.8']
-
+        python-version: ['3.8', '3.9', 'pypy-3.8']
+        toxenv:
+          - pre-commit
+          - py38-2.2
+          - pypy-3.8-2.2
+          - py38-3.0
+          - pypy-3.8-3.0
+          - py38-3.1
+          - pypy-3.8-3.1
+          - py39-3.2
+          - pypy-3.8-3.2
+          - py38-main
+          - py39-main
+          - pypy-3.8-main
+        exclude:
+          - python-version: '3.8'
+            toxenv: pre-commit
+          - python-version: '3.9'
+            toxenv: pre-commit
+          - python-version: 'pypy-3.8'
+            toxenv: pre-commit
+          - python-version: '3.9'
+            toxenv: py38-2.2
+          - python-version: '3.9'
+            toxenv: pypy-3.8-2.2
+          - python-version: '3.9'
+            toxenv: py38-3.0
+          - python-version: '3.9'
+            toxenv: pypy-3.8-3.0
+          - python-version: '3.9'
+            toxenv: py38-3.1
+          - python-version: '3.9'
+            toxenv: pypy-3.8-3.1
+          - python-version: '3.9'
+            toxenv: py39-3.2
+          - python-version: '3.9'
+            toxenv: pypy-3.8-3.2
+          - python-version: '3.9'
+            toxenv: py38-main
+          - python-version: '3.9'
+            toxenv: py39-main
+          - python-version: '3.9'
+            toxenv: pypy-3.8-main
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v2
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install dependencies
-      run: |
-        pip install sphinx${SPHINX_VERSION:+==$SPHINX_VERSION}
-        pip install -r requirements-travis.txt
-
-    - name: Run inspekt checks
-      run: |
-        inspekt checkall --disable-style E501,E265,W601,W605,E402,E722,E741,E0601,E0606 --no-license-check || true
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install coverage tox
+      - name: Run tests
+        env:
+          TOXENV: ${{ matrix.toxenv }}
+        run: tox
+      - name: Upload coverage to Coveralls
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: coveralls
