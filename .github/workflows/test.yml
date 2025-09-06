@@ -13,27 +13,41 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11']
-        toxenv: [py38, py39, py310, py311, lint, docs, packaging]
+        python-version: ['3.8', '3.9']
+        include:
+          - python-version: '3.8'
+            toxenv: tests
+          - python-version: '3.9'
+            toxenv: tests
+          - python-version: '3.9'
+            toxenv: mypy
+          - python-version: '3.9'
+            toxenv: apidocs
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install tox codecov
+      - name: Run tests
+        run: tox -e ${{ matrix.toxenv }}
+      - name: Upload coverage to Codecov
+        if: always()
+        run: codecov
 
+  build_docs:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
       - name: Install dependencies
         run: pip install tox
-
-      - name: Run tests
-        env:
-          TOXENV: ${{ matrix.toxenv }}
-        run: |
-          if [ -f tox.ini ] || [ -f setup.cfg ] || [ -f pyproject.toml ] || [ -f tox.toml ]; then
-            tox || exit 0
-          else
-            echo "No tox configuration file found, skipping tests."
-            exit 0
-          fi
+      - name: Build and push docs
+        run: ./.travis/build_docs.sh
